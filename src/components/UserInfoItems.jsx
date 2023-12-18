@@ -1,25 +1,34 @@
 function UserInfoItems({ user, userId }) {
-  const { street, suite, city, zipcode } = user.address;
-  const { lat, lng } = user.address.geo;
-  const currentUser = Number(user.id) === userId;
+  const { id, name, username, email, address } = user;
+  const {
+    street,
+    suite,
+    city,
+    zipcode,
+    geo: { lat, lng },
+  } = address;
+  const isCurrentUser = Number(id) === userId;
 
-  if (currentUser)
-    return (
-      <div className="text-lg">
-        <ul>
-          <li>ID: {user.id}</li>
-          <li>name: {user.name}</li>
-          <li>username: {user.username}</li>
-          <li>email: {user.email}</li>
-          <li>street: {street}</li>
-          <li>suite: {suite}</li>
-          <li>city: {city}</li>
-          <li>zipcode: {zipcode}</li>
-          <li>lat: {lat}</li>
-          <li>lng: {lng}</li>
-        </ul>
-      </div>
-    );
+  if (!isCurrentUser) {
+    return null;
+  }
+
+  return (
+    <div className="text-lg mx-10 flex justify-center">
+      <ul className="min-w-[300px]">
+        <li>ID: {id}</li>
+        <li>name: {name}</li>
+        <li>username: {username}</li>
+        <li>email: {email}</li>
+        <li>street: {street}</li>
+        <li>suite: {suite}</li>
+        <li>city: {city}</li>
+        <li>zipcode: {zipcode}</li>
+        <li>lat: {lat}</li>
+        <li>lng: {lng}</li>
+      </ul>
+    </div>
+  );
 }
 
 export default UserInfoItems;
